@@ -2,8 +2,8 @@
 
 \usepackage{array}
 \usepackage{hyperref}
-\renewcommand{\baselinestretch}{1.2} 
-
+\usepackage{graphicx}
+\graphicspath{ {/Users/maymaays/Downloads/} }
 
 \begin{document}
 
@@ -16,9 +16,19 @@
 Short text documents, such as instant messages, SMS, or news headlines, have been increasingly useful for data analysis in recent times. Furthermore, these text documents are presented in real time, requiring a form of stream clustering technique. A data stream is a continuously generated sequence of data for which the characteristics of the data evolve over time. In this paper, we propose a short text document clustering technique which supports continuous data streams in real time using E-Stream algorithm as a stream clustering technique, Distributed Word Representation for representing each document, and Word Mover's Distance as the distance metric. It is expected that this proposed algorithm will offer a new way to effectively represent short text documents in real-time and offer meaningful patterns for future analysis.
 \end{abstract}
 
+
 \section{Introduction}
+
+
+\begin{figure}[hp]
+\centering
+\includegraphics[width=3cm, height=3cm]{cc.png}
+\caption{An example of a result of clustering algorithm into 3 clusters}
+\label{fig:cc1}
+\end{figure}
+
 In social media, stream short text documents are text documents that contain very few words, such as instant messages, SMS, or news headlines that are ordered sequences of documents that arrive in timely order. Different from data in traditional static databases, data streams are continuous, unbounded, usually come with high speed and have a data distribution that often changes with time. Therefore, developing data mining techniques to handle the large volume of short text documents from data stream has become an important goal. Short text clustering is already a challenging task; due to the sparsity and noise, they provide very few contextual clues for applying traditional data mining techniques; therefore, short documents require different or more adapted approaches. The representation of short-text segments needs to get enriched by incorporating information about correlation between terms. Data streams, because of their unique features, have further posed many new challenges to short text document clustering. There are three main challenges: single access of data, unbounded data, and real-time response. 
-In addition to the aforementioned challenges, applying stream clustering to short text documents requires an efficient method to represent and store documents for computation of clusters. In this paper, the focus is on developing a new clustering algorithm that is suitable for clustering short text documents from differing sources of data streams. Some previously proposed algorithms are chosen as a basis for developing this stream short text document clustering algorithm. Then, the result and performance of the proposed algorithm will be shown on a web-based application.
+In addition to the aforementioned challenges, applying stream clustering to short text documents requires an efficient method to represent and store documents for computation of clusters. In this paper, the focus is on developing a new clustering algorithm that is suitable for clustering short text documents from differing sources of data streams. Some previously proposed algorithms are chosen as a basis for developing this stream short text document clustering algorithm. Then, the result, similar to the example seen in figure \ref{fig:cc1} on page \pageref{fig:cc1}, and performance of the proposed algorithm will be shown on a web-based application.
 
 \section{Literature Summary}
 
@@ -67,21 +77,6 @@ Distributed Word and Phrase Representation & This results in a great improvement
 \hline
 Supervised Word Mover's Distance \cite{WMD} & Propose an efficient technique to learn a supervised metric & Document Distance (DD) & Supervised Word Mover's Distance & S-WMD manages to capture difference in words based on the context of the article \\ 
 \hline
-\end{tabular}
-\end{table}
-\end{center}
-
-% table 1
-\begin{center}
-\setcounter{table}{0}
-\begin{table}[htbp]
-\caption{Six papers on stream clustering and Short text document clustering, with their scopes, goals, algorithm(s), and performance.} 
-\label{tbl:tab1}
-\scriptsize
-\begin{tabular}{|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.35cm}|p{1.35cm}|}
-\hline
-\labelthis{paper}{Paper}  & \labelthis{scope}{Scope} & \labelthis{goal}{Goal} & \labelthis{algor}{Algorithm(s)} & \labelthis{perf}{Performance}\\
-\hline
 Short Text Document Clustering \cite{SText} & Presents a method for clustering short text documents & Document Distance (DD) and Document Representation (DR) & Distributed Word Representation and Word Mover's Distance & The combination between the two algorithms outperforms others significantly \\
 \hline
 \end{tabular}
@@ -91,7 +86,9 @@ Short Text Document Clustering \cite{SText} & Presents a method for clustering s
 % start description of table 1
  Based on the research papers' goals, we can divide these papers into three categories: stream clustering (SC), document distance (DD), and document representation (DR). According to column \nameref*{goal} in Table \ref{tbl:tab1}, E-Stream \cite{EStream} and SE-Stream \cite{SEStream} discuss about two stream clustering algorithms. SE-Stream is an extension of E-Stream, as seen in column \nameref*{scope} of Table \ref{tbl:tab1}. In column \nameref*{goal} of Table \ref{tbl:tab1}, Similarity Measures for Text Document Clustering  \cite{SimMea}, Supervised Word Mover's Distance  \cite{WMD}, and Short Text Document Clustering \cite{SText} papers then discuss about commonly used document distance metrics. According to column \nameref*{scope} in Table \ref{tbl:tab1}, Similarity Measures for Text Document Clustering paper compares five metrics and their performance, while Supervised Word Mover's Distance and Short Text Document Clustering papers focus on one specific metric. Short Text Document Clustering and Distributed Representations of Words  \cite{Distributed} discuss two Distributed Word Representation algorithms, where one is a supervised extension of the former, according to both column \nameref*{scope} and \nameref*{goal} in Table \ref{tbl:tab1}. 
 
-As seen  in column \nameref*{perf} in Table \ref{tbl:tab1}, the performance comparison between stream clustering algorithms, SE-Stream has better performance since it tried to reduce the number of dimensions in the incoming data before using them to compute the clusters (Column \nameref*{algor}, Table \ref{tbl:tab1}).
+As seen  in column \nameref*{perf} in Table \ref{tbl:tab1}, the performance comparison between stream clustering algorithms, SE-Stream has better performance since it tries to reduce the number of dimensions in the incoming data before using them to compute the clusters (Column \nameref*{algor}, Table \ref{tbl:tab1}).
+
+
 
 % end section 2
 
@@ -105,12 +102,30 @@ Examples of such techniques are E-Stream \cite{EStream} and SE-Stream \cite{SESt
 The main idea of this stream clustering technique is that data stream's behavior can evolve over time. There are five categories: appearance, disappearance, self-evolution, merge, and split.
 
 \subsubsection{SE-Stream}
-This stream clustering technique is an extension of the previous technique, E-Stream, to support high dimensional data streams. The cluster quality and execution time of SE-Stream is improved when compared to E-stream.
+This stream clustering technique is an extension of the previous technique, E-Stream, to support high dimensional data streams. The cluster quality and execution time of SE-Stream is improved when compared to E-stream. 
+
+\begin{figure}[hp]
+\centering
+\includegraphics[width=7cm, height=6cm]{performance}
+\caption{Performance comparison in term of execution time between E-Stream and SE-Stream}
+\label{fig:perf1}
+\end{figure}
+
+In figure \ref{fig:perf1} on page \pageref{fig:perf1} shows performance of SE-Stream and E-Stream in term of execution time. The execution time of SE-Stream is significantly lower than E-stream.
+
 
 \subsection{Short Text Document Clustering}
+
+\begin{figure}[hp]
+\centering
+\includegraphics[width=7cm, height=9cm]{st}
+\caption{An example of Short Text Document Clustering Process}
+\label{fig:st1}
+\end{figure}
+
 Short text documents have become increasingly important for data analysis. In order to analyze the documents, an effective representation of the documents and a proper distance metric are required, such as Distributed Word Representation and Word Mover's Distance \cite{SText}, respectively.
 
-Firstly, short text documents are preprocessed by standard text preprocessing techniques, resulting in a vector space of unique words. Then, the trained neural network is applied to the preprocessed data to create the word representations. Lastly, K-Means algorithm is used to cluster these representations of the documents using WMD as the distance metric.
+As seen in figure \ref{fig:st1} on page \pageref{fig:st1}, short text documents are firstly preprocessed by standard text preprocessing techniques, resulting in a vector space of unique words. Then, the trained neural network is applied to the preprocessed data to create the word representations. Lastly, K-Means algorithm is used to cluster these representations of the documents using WMD as the distance metric.
 
 \subsubsection{Distributed Word Representation}
 This algorithm learns and represents the words in vector space using a neural network model. It is able to capture semantic similarity between words. The main idea of this algorithm is to represent each word by a vector of certain dimension.
@@ -135,7 +150,7 @@ This distance metric is based on the idea of Earth Mover's Distance, measuring h
 \bibitem{WMD} Gao Huang, C. G., Matt J. Kusner, Yu Sun, Kilian Q. Weinberger, Fei Sha. (2016). Supervised Word Mover's Distance. {\it NIPS, 30}, pp. 1-9. 
   
 % Short Text
-\bibitem{SText} Supavit KONGWUDHIKUNAKORN, K. W. (2017). Short Text Document Clustering using Distributed Word Representation and Document Distance. {\it  Walailak J Sci and Tech, 14}, pp. 1-13. 
+\bibitem{SText} Supavit Kongwudhikunakorn, K. W. (2017). Short Text Document Clustering using Distributed Word Representation and Document Distance. {\it  Walailak J Sci and Tech, 14}, pp. 1-13. 
     
 \end{thebibliography}
 
